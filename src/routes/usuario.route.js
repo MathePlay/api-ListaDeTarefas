@@ -1,8 +1,12 @@
 import { Router } from "express";
 const router = Router()
 
-import { criarUsuarioController } from '../controllers/usuario.controller.js'
+import { 
+    criarUsuarioController, 
+    buscarUsuariosController 
+} from '../controllers/usuario.controller.js'
 
 router.post("/", criarUsuarioController)
+router.get("/", buscarUsuariosController)
 
 export default router

@@ -1,4 +1,7 @@
-import { criarUsuarioRepository } from "../repositories/usuario.repository.js"
+import { 
+    criarUsuarioRepository,
+    buscarUsuariosRepository
+} from "../repositories/usuario.repository.js"
 
 export const criarUsuarioService = async (body) => {
     const { nome, email, senha} = body
@@ -13,4 +16,12 @@ export const criarUsuarioService = async (body) => {
             message: "Usuario cadastrado com successo!!",
             usuario
         })
-} 
+}
+
+export const buscarUsuariosService = async () => {
+    const usuarios = await buscarUsuariosRepository()
+
+    if (usuarios.length === 0) throw new Error("Você não tem usuarios cadastrados")
+
+    return usuarios
+}
