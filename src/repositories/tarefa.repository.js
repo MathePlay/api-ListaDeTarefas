@@ -11,3 +11,15 @@ export const alterarRealizadaRepository = (id, valor) => Tarefa.findOneAndUpdate
     {realizada: valor},
     {new: true}
 )
+
+export const alterarPrioridadeRepository = (id, prioridade) => Tarefa.findOneAndUpdate(
+    {_id: id},
+    {prioridade: prioridade},
+    {new: true}
+)
+
+export const alterarNomeTarefaRepository = (id, nome) => Tarefa.findOneAndUpdate(
+    {_id: id},
+    {nome: nome},
+    {new: true}
+)

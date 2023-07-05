@@ -2,13 +2,19 @@ import {
     adicionarTarefaRepository,
     buscarTodasTarefasRepository,
     buscarTarefaPeloIdRepository,
-    alterarRealizadaRepository
+    alterarRealizadaRepository,
+    alterarPrioridadeRepository,
+    alterarNomeTarefaRepository
 } from "../repositories/tarefa.repository.js"
 
 export const adicionarTarefaService = async (body) => {
     const { nome, prioridade} = body
 
     if (!nome || !prioridade) throw new Error("Insira todos os campos para o cadastro")
+
+    if (prioridade !== "URGENTE" && prioridade !== "ALTA" && prioridade !== "MEDIA" &&  prioridade !== "BAIXA") {
+        throw new Error("A prioridade precisa ser: URGENTE, ALTA, MEDIA ou BAIXA")
+    }
 
     const tarefa = await adicionarTarefaRepository(body)
 
@@ -52,4 +58,27 @@ export const alterarRealizadaService = async (id) => {
     const tarefaAutalizada = await alterarRealizadaRepository(id, valor)
 
     return tarefaAutalizada.realizada
+}
+
+export const alterarPrioridadeService = async (id, prioridade) => {
+
+    if (!prioridade) throw new Error("Não foi encontrado o parametro")
+
+    if (prioridade !== "URGENTE" && prioridade !== "ALTA" && prioridade !== "MEDIA" &&  prioridade !== "BAIXA") {
+        throw new Error("A prioridade precisa ser: URGENTE, ALTA, MEDIA ou BAIXA")
+    }
+    
+    const tarefaAutalizada = await alterarPrioridadeRepository(id, prioridade)
+
+    if (!tarefaAutalizada) throw new Error("Não foi possivel alterar a prioridade")
+}
+
+export const alterarNomeTarefaService = async (id, nome) => {
+
+    if (!nome) throw new Error("Não foi encontrado o parametro")
+    if(!nome.length === 0) throw new Error("Parametro sem caracter")
+    
+    const tarefaAutalizada = await alterarNomeTarefaRepository(id, nome)
+
+    if (!tarefaAutalizada) throw new Error("Não foi possivel alterar o nome")
 }
