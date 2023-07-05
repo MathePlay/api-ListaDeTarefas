@@ -1,6 +1,8 @@
 import { 
     adicionarTarefaRepository,
-    buscarTodasTarefasRepository
+    buscarTodasTarefasRepository,
+    buscarTarefaPeloIdRepository,
+    alterarRealizadaRepository
 } from "../repositories/tarefa.repository.js"
 
 export const adicionarTarefaService = async (body) => {
@@ -29,4 +31,25 @@ export const buscarTodasTarefasService = async () => {
     if(tarefas.length === 0) throw new Error("Não foram encontradas tarefas!")
 
     return tarefas
+}
+
+export const buscarTarefaPeloIdService = async (id) => {
+    const tarefa = await buscarTarefaPeloIdRepository(id)
+
+    if (!tarefa) throw new Error("Tarefa não encontrada")
+
+    return tarefa
+}
+
+export const alterarRealizadaService = async (id) => {
+
+    const tarefa = await buscarTarefaPeloIdRepository(id)
+
+    if (!tarefa) throw new Error("Tarefa não encontrada")
+
+    const valor = !tarefa.realizada
+    
+    const tarefaAutalizada = await alterarRealizadaRepository(id, valor)
+
+    return tarefaAutalizada.realizada
 }
