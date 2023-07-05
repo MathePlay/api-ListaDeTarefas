@@ -1,7 +1,7 @@
 {
-  "name": "api-minha-biblioteca",
+  "name": "api-minhas-tarefas",
   "version": "1.0.0",
-  "description": "API para a SPA Minha Biblioteca",
+  "description": "API para a SPA Minhas Tarefas",
   "main": "index.js",
   "type": "module",
   "scripts": {
