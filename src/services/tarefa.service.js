@@ -1,4 +1,7 @@
-import { adicionarTarefaRepository } from "../repositories/tarefa.repository.js"
+import { 
+    adicionarTarefaRepository,
+    buscarTodasTarefasRepository
+} from "../repositories/tarefa.repository.js"
 
 export const adicionarTarefaService = async (body) => {
     const { nome, prioridade} = body
@@ -19,3 +22,11 @@ export const adicionarTarefaService = async (body) => {
             }
         })
 } 
+
+export const buscarTodasTarefasService = async () => {
+    const tarefas = await buscarTodasTarefasRepository()
+
+    if(tarefas.length === 0) throw new Error("Não foram encontradas tarefas!")
+
+    return tarefas
+}

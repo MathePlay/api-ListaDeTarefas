@@ -5,6 +5,7 @@ import cors from 'cors'
 
 import tarefaRoute from './routes/tarefa.route.js'
 import usuarioRouter from './routes/usuario.route.js'
+import autentRoute from './routes/autent.route.js'
 
 dotenv.config()
 
@@ -15,7 +16,8 @@ app.use(cors())
 connectDatabase()
 app.use(express.json())
 
-app.use("/tarefa", tarefaRoute)
 app.use("/usuario", usuarioRouter)
+app.use("/login", autentRoute)
+app.use("/tarefa", tarefaRoute)
 
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`))

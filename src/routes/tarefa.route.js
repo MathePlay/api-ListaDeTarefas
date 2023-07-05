@@ -1,8 +1,14 @@
 import { Router } from "express";
 const router = Router()
 
-import { adicionarTarefaController } from '../controllers/tarefa.controller.js'
+import { autentMiddleware } from "../middlewares/autent.middleware.js";
+import { 
+    adicionarTarefaController,
+    buscarTodasTarefasController
+} from '../controllers/tarefa.controller.js'
 
-router.post("/", adicionarTarefaController)
+router.post("/", autentMiddleware, adicionarTarefaController)
+router.get("/", autentMiddleware, buscarTodasTarefasController)
+
 
 export default router
