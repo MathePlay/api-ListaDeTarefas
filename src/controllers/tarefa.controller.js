@@ -76,9 +76,9 @@ export const alterarNomeTarefaController = async (req, res) => {
         const {id} = req.params
         const { nome } = req.body
 
-        await alterarNomeTarefaService(id, nome)
+        const tarefaAtualizada = await alterarNomeTarefaService(id, nome)
 
-        res.status(201).send({message: `Nome da tarefa alterado para: ${nome}`})
+        res.status(201).send(tarefaAtualizada)
 
     } catch (err) {
         res.status(500).send({ message: err.message })

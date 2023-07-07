@@ -81,4 +81,6 @@ export const alterarNomeTarefaService = async (id, nome) => {
     const tarefaAutalizada = await alterarNomeTarefaRepository(id, nome)
 
     if (!tarefaAutalizada) throw new Error("Não foi possivel alterar o nome")
+
+    return tarefaAutalizada
 }
