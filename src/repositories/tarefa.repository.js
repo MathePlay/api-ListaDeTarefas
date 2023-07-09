@@ -6,20 +6,16 @@ export const buscarTodasTarefasRepository = () => Tarefa.find()
 
 export const buscarTarefaPeloIdRepository = (id) => Tarefa.findById(id)
 
+export const editarTarefaRepository = (id, tarefa) => Tarefa.findOneAndUpdate(
+    {_id: id},
+    {$set: tarefa},
+    {new: true}
+)
+
 export const alterarRealizadaRepository = (id, valor) => Tarefa.findOneAndUpdate(
     {_id: id},
     {realizada: valor},
     {new: true}
 )
 
-export const alterarPrioridadeRepository = (id, prioridade) => Tarefa.findOneAndUpdate(
-    {_id: id},
-    {prioridade: prioridade},
-    {new: true}
-)
-
-export const alterarNomeTarefaRepository = (id, nome) => Tarefa.findOneAndUpdate(
-    {_id: id},
-    {nome: nome},
-    {new: true}
-)
+export const deletarTarefaRepository = (id) => Tarefa.findByIdAndDelete(id)

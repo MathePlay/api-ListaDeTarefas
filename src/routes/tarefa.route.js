@@ -7,17 +7,17 @@ import {
     adicionarTarefaController,
     buscarTodasTarefasController,
     buscarTarefaPeloIdController,
+    editarTarefaController,
     alterarRealizadaController,
-    alterarPrioridadeController,
-    alterarNomeTarefaController
+    deletarTarefaController,
 } from '../controllers/tarefa.controller.js'
 
 router.post("/", adicionarTarefaController)
 router.get("/", buscarTodasTarefasController)
 router.get("/:id", buscarTarefaPeloIdController)
-router.patch("/:id", alterarRealizadaController)
-router.patch("/prioridade/:id", alterarPrioridadeController)
-router.patch("/nome/:id", alterarNomeTarefaController)
+router.put("/:id", editarTarefaController)
+router.patch("/realizar/:id", alterarRealizadaController)
+router.delete("/:id", deletarTarefaController)
 
 
 

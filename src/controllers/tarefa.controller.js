@@ -2,9 +2,9 @@ import {
     adicionarTarefaService,
     buscarTodasTarefasService,
     buscarTarefaPeloIdService,
+    editarTarefaService,
     alterarRealizadaService,
-    alterarPrioridadeService,
-    alterarNomeTarefaService
+    deletarTarefaService,
 } from "../services/tarefa.service.js"
 
 export const adicionarTarefaController = async (req, res) => {
@@ -44,41 +44,41 @@ export const buscarTarefaPeloIdController = async (req, res) => {
     }
 }
 
+export const editarTarefaController = async (req, res) => {
+    try {
+        const {id} = req.params
+        const tarefaBody = req.body
+
+        const tarefa = await editarTarefaService(id, tarefaBody)
+
+        res.status(201).send(tarefa)
+
+    } catch (err) {
+        res.status(500).send({ message: err.message })
+            }
+}
+
 export const alterarRealizadaController = async (req, res) => {
     try {
         const {id} = req.params
 
-        const realizada = await alterarRealizadaService(id)
+        const tarefa = await alterarRealizadaService(id)
 
-        res.status(201).send({message: `Tarefa ${realizada ? "" : "não " }Realizada`})
-
-    } catch (err) {
-        res.status(500).send({ message: err.message })
-    }
-}
-
-export const alterarPrioridadeController = async (req, res) => {
-    try {
-        const {id} = req.params
-        const { prioridade } = req.body
-
-        await alterarPrioridadeService(id, prioridade)
-
-        res.status(201).send({message: `Prioridade alterada para ${prioridade}`})
+        res.status(201).send(tarefa)
 
     } catch (err) {
         res.status(500).send({ message: err.message })
     }
 }
 
-export const alterarNomeTarefaController = async (req, res) => {
+
+export const deletarTarefaController = async (req, res) => {
     try {
         const {id} = req.params
-        const { nome } = req.body
 
-        const tarefaAtualizada = await alterarNomeTarefaService(id, nome)
+        const tarefa = await deletarTarefaService(id)
 
-        res.status(201).send(tarefaAtualizada)
+        res.status(201).send({message: "Tarefa deletada com succeso"})
 
     } catch (err) {
         res.status(500).send({ message: err.message })

@@ -2,9 +2,9 @@ import {
     adicionarTarefaRepository,
     buscarTodasTarefasRepository,
     buscarTarefaPeloIdRepository,
+    editarTarefaRepository,
     alterarRealizadaRepository,
-    alterarPrioridadeRepository,
-    alterarNomeTarefaRepository
+    deletarTarefaRepository
 } from "../repositories/tarefa.repository.js"
 
 export const adicionarTarefaService = async (body) => {
@@ -20,15 +20,7 @@ export const adicionarTarefaService = async (body) => {
 
     if (!tarefa) throw new Error("Erro ao adicionar a tarefa!")
 
-    return ({
-            message: "Tarefa adicionada com successo!!",
-            tarefa: {
-                id: tarefa._id,
-                nome: tarefa.nome,
-                prioridade: tarefa.prioridade,
-                data_criacao: tarefa.data_criacao,
-            }
-        })
+    return (tarefa)
 } 
 
 export const buscarTodasTarefasService = async () => {
@@ -47,40 +39,52 @@ export const buscarTarefaPeloIdService = async (id) => {
     return tarefa
 }
 
-export const alterarRealizadaService = async (id) => {
+export const editarTarefaService = async (id, body) => {
 
-    const tarefa = await buscarTarefaPeloIdRepository(id)
+    const {prioridade, nome} = body
 
-    if (!tarefa) throw new Error("Tarefa não encontrada")
+    if(!prioridade && !nome) throw new Error("Parametros Inválidos ou sem valores")
 
-    const valor = !tarefa.realizada
-    
-    const tarefaAutalizada = await alterarRealizadaRepository(id, valor)
-
-    return tarefaAutalizada.realizada
-}
-
-export const alterarPrioridadeService = async (id, prioridade) => {
-
-    if (!prioridade) throw new Error("Não foi encontrado o parametro")
-
-    if (prioridade !== "URGENTE" && prioridade !== "ALTA" && prioridade !== "MEDIA" &&  prioridade !== "BAIXA") {
+    if (prioridade && (prioridade !== "URGENTE" && prioridade !== "ALTA" && prioridade !== "MEDIA" &&  prioridade !== "BAIXA")) {
         throw new Error("A prioridade precisa ser: URGENTE, ALTA, MEDIA ou BAIXA")
     }
-    
-    const tarefaAutalizada = await alterarPrioridadeRepository(id, prioridade)
 
-    if (!tarefaAutalizada) throw new Error("Não foi possivel alterar a prioridade")
+    const tarefaEncontrada = await buscarTarefaPeloIdRepository(id)
+
+    if (!tarefaEncontrada) throw new Error("Tarefa não encontrada")
+    
+    if(prioridade){
+        tarefaEncontrada.prioridade = prioridade
+    }
+
+    if(nome){
+        tarefaEncontrada.nome = nome
+    }
+
+    const tarefa = await editarTarefaRepository(id, tarefaEncontrada)
+
+    if(!tarefa) throw new Error("Erro ao alterar a tarefa")
+
+    return tarefa
+
 }
 
-export const alterarNomeTarefaService = async (id, nome) => {
+export const alterarRealizadaService = async (id) => {
 
-    if (!nome) throw new Error("Não foi encontrado o parametro")
-    if(!nome.length === 0) throw new Error("Parametro sem caracter")
+    const tarefaEncontrada = await buscarTarefaPeloIdRepository(id)
+
+    if (!tarefaEncontrada) throw new Error("Tarefa não encontrada")
+
+    const valor = !tarefaEncontrada.realizada
     
-    const tarefaAutalizada = await alterarNomeTarefaRepository(id, nome)
+    const tarefa = await alterarRealizadaRepository(id, valor)
 
-    if (!tarefaAutalizada) throw new Error("Não foi possivel alterar o nome")
+    if(!tarefa) throw new Error("Erro ao alterar o status de realizado da tarefa")
 
-    return tarefaAutalizada
+    return tarefa
+}
+
+export const deletarTarefaService = async (id) => {
+
+    await deletarTarefaRepository(id)
 }
