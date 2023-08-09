@@ -49,7 +49,9 @@ export const buscarTarefaPeloIdController = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const tarefa = await buscarTarefaPeloIdService(id);
+        const idUsuario = req.IdUsuario
+
+        const tarefa = await buscarTarefaPeloIdService(id, idUsuario);
 
         res.status(201).send(tarefa);
     } catch (err) {

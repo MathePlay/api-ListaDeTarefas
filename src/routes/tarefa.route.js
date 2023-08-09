@@ -15,7 +15,7 @@ import {
 
 router.post("/", autentMiddleware ,adicionarTarefaController);
 router.get("/", autentMiddleware ,buscarTodasTarefasController);
-router.get("/:id", buscarTarefaPeloIdController);
+router.get("/:id", autentMiddleware, buscarTarefaPeloIdController);
 router.put("/:id", editarTarefaController);
 router.patch("/realizar/:id", alterarRealizadaController);
 router.patch("/favorito/:id", alterarFavoritoController);

@@ -11,8 +11,7 @@ import {
 export const adicionarTarefaService = async (body) => {
     const { nome } = body;
 
-    if (!nome)
-        throw new Error("Insira o nome da tarefa");
+    if (!nome) throw new Error("Insira o nome da tarefa");
 
     // if (
     //     prioridade !== "URGENTE" &&
@@ -40,12 +39,24 @@ export const buscarTodasTarefasService = async (id) => {
     return tarefas;
 };
 
-export const buscarTarefaPeloIdService = async (id) => {
+export const buscarTarefaPeloIdService = async (id, idUsuario) => {
     const tarefa = await buscarTarefaPeloIdRepository(id);
 
     if (!tarefa) throw new Error("Tarefa não encontrada");
 
-    return tarefa;
+    const idUsuarioTarefa = tarefa.usuario.id
+
+    if (tarefa.usuario.id !== idUsuario)
+        throw new Error("Tarefa não encontrada.");
+
+    return {
+        id: tarefa._id,
+        nome: tarefa.nome,
+        realizada: tarefa.realizada,
+        favorito: tarefa.favorito,
+        data_criacao: tarefa.data_criacao,
+        usuario: tarefa.usuario.nome,
+    };
 };
 
 export const editarTarefaService = async (id, body) => {

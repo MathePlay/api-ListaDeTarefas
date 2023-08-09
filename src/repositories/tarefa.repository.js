@@ -2,9 +2,10 @@ import Tarefa from "../models/Tarefa.js";
 
 export const adicionarTarefaRepository = (body) => Tarefa.create(body);
 
-export const buscarTodasTarefasRepository = (id) => Tarefa.find({usuario: id}).populate("usuario")
+export const buscarTodasTarefasRepository = (id) =>
+    Tarefa.find({ usuario: id }).populate("usuario");
 
-export const buscarTarefaPeloIdRepository = (id) => Tarefa.findById(id);
+export const buscarTarefaPeloIdRepository = (id) => Tarefa.findById(id).populate("usuario");
 
 export const editarTarefaRepository = (id, tarefa) =>
     Tarefa.findOneAndUpdate({ _id: id }, { $set: tarefa }, { new: true });
