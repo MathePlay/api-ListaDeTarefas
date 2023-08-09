@@ -19,7 +19,7 @@ const TarefaSchema = new mongoose.Schema({
     },
     usuario:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "usuarios",
+        ref: "Usuario",
         require: true
     },
     // prioridade: {

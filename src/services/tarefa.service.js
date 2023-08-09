@@ -12,7 +12,7 @@ export const adicionarTarefaService = async (body) => {
     const { nome } = body;
 
     if (!nome)
-        throw new Error("Insira todos os campos para o cadastro");
+        throw new Error("Insira o nome da tarefa");
 
     // if (
     //     prioridade !== "URGENTE" &&
@@ -32,8 +32,8 @@ export const adicionarTarefaService = async (body) => {
     return tarefa;
 };
 
-export const buscarTodasTarefasService = async () => {
-    const tarefas = await buscarTodasTarefasRepository();
+export const buscarTodasTarefasService = async (id) => {
+    const tarefas = await buscarTodasTarefasRepository(id);
 
     if (tarefas.length === 0) throw new Error("Não foram encontradas tarefas!");
 

@@ -2,7 +2,7 @@ import Tarefa from "../models/Tarefa.js";
 
 export const adicionarTarefaRepository = (body) => Tarefa.create(body);
 
-export const buscarTodasTarefasRepository = () => Tarefa.$where();
+export const buscarTodasTarefasRepository = (id) => Tarefa.find({usuario: id}).populate("usuario")
 
 export const buscarTarefaPeloIdRepository = (id) => Tarefa.findById(id);
 

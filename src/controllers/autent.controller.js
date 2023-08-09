@@ -1,6 +1,6 @@
 import { loginService } from '../services/autent.service.js'
 
-const login = async (req, res) => {
+const loginController = async (req, res) => {
     const { email, senha } = req.body
 
     try {
@@ -13,4 +13,4 @@ const login = async (req, res) => {
     }
 }
 
-export default login
+export default loginController

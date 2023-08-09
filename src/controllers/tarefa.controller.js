@@ -25,9 +25,21 @@ export const adicionarTarefaController = async (req, res) => {
 
 export const buscarTodasTarefasController = async (req, res) => {
     try {
-        const tarefas = await buscarTodasTarefasService({usuario: req.IdUsuario});
 
-        res.status(201).send(tarefas);
+        const id = req.IdUsuario
+
+        const tarefas = await buscarTodasTarefasService(id);
+
+        res.send({
+            resultados: tarefas.map(t => ({
+                id: t.id,
+                nome: t.nome,
+                realizada: t.realizada,
+                favorito: t.favorito,
+                data_criacao: t.data_criacao,
+                usuario: t.usuario.nome
+            }))
+        });
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
