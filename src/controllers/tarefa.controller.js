@@ -63,8 +63,9 @@ export const editarTarefaController = async (req, res) => {
     try {
         const { id } = req.params;
         const tarefaBody = req.body;
+        const idUsuario = req.IdUsuario
 
-        const tarefa = await editarTarefaService(id, tarefaBody);
+        const tarefa = await editarTarefaService(id, tarefaBody, idUsuario);
 
         res.status(201).send(tarefa);
     } catch (err) {

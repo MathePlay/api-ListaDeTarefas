@@ -44,8 +44,6 @@ export const buscarTarefaPeloIdService = async (id, idUsuario) => {
 
     if (!tarefa) throw new Error("Tarefa não encontrada");
 
-    const idUsuarioTarefa = tarefa.usuario.id
-
     if (tarefa.usuario.id !== idUsuario)
         throw new Error("Tarefa não encontrada.");
 
@@ -62,7 +60,7 @@ export const buscarTarefaPeloIdService = async (id, idUsuario) => {
 export const editarTarefaService = async (id, body) => {
     const { nome } = body;
 
-    if (!prioridade && !nome)
+    if (!nome)
         throw new Error("Parametros Inválidos ou sem valores");
 
     // if (
@@ -80,6 +78,9 @@ export const editarTarefaService = async (id, body) => {
     const tarefaEncontrada = await buscarTarefaPeloIdRepository(id);
 
     if (!tarefaEncontrada) throw new Error("Tarefa não encontrada");
+
+    if (tarefa.usuario.id !== idUsuario)
+        throw new Error("Tarefa não encontrada.");
 
     // if (prioridade) {
     //     tarefaEncontrada.prioridade = prioridade;
