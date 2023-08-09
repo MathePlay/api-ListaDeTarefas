@@ -5,11 +5,11 @@ const TarefaSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    prioridade: {
-        type: String,
-        require: true
-    },
     realizada: {
+        type: Boolean,
+        default: false
+    },
+    favorito: {
         type: Boolean,
         default: false
     },
@@ -17,14 +17,19 @@ const TarefaSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    data_limite: {
-        type: Date,
-        require: false
+    usuario:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "usuarios",
+        require: true
     },
-    data_realizacao: {
-        type: Date,
-        require: false
-    },
+    // prioridade: {
+    //     type: String,
+    //     require: true
+    // },
+    // data_limite: {
+    //     type: Date,
+    //     default: Date.now()
+    // },
 })
 
 const Tarefa = mongoose.model("Tarefas", TarefaSchema)
