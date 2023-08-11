@@ -6,7 +6,7 @@ export const loginService = async (email, senha) =>{
 
     if(!usuario) throw new Error("Usuario ou senha invalido")
 
-    const SenhaValida = bcrypt.compare(senha, usuario.senha)
+    const SenhaValida = await bcrypt.compare(senha, usuario.senha)
 
     if(!SenhaValida) throw new Error("Usuario ou senha invalido")
     
