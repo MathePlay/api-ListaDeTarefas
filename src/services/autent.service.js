@@ -12,5 +12,10 @@ export const loginService = async (email, senha) =>{
     
     const token = gerarToken(usuario.id)
 
-    return token
+    return {
+        user: {
+            token,
+            nome: usuario.nome
+        }
+    }
 }
