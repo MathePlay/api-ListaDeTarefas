@@ -1,5 +1,6 @@
 import { 
     criarUsuarioService,
+    BuscarUsuarioPeloIdService
  } from "../services/usaurio.service.js"
  import jwt from 'jsonwebtoken'
 
@@ -18,7 +19,7 @@ export const criarUsuarioController = async (req, res) => {
 
 export const buscarUsuarioPorTokenController = async(req, res) => {
     try {
-        const token = req.body
+        const {token} = req.body
 
         jwt.verify(token, process.env.SECRET_JWT, async (err, decoded) => {
             if (err) {
@@ -31,7 +32,7 @@ export const buscarUsuarioPorTokenController = async(req, res) => {
                 res.status(401).send({ message: "Token Inválido!" })
             }
 
-            return usuario.nome
+            res.send(usuario.nome)
         })
 
     } catch (err) {

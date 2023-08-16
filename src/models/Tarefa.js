@@ -1,5 +1,10 @@
 import mongoose from 'mongoose'
 
+const dia = new Date().getDate()
+const mes = new Date().getMonth() + 1
+const ano = new Date().getFullYear()
+
+
 const TarefaSchema = new mongoose.Schema({
     nome: {
         type: String,
@@ -14,8 +19,8 @@ const TarefaSchema = new mongoose.Schema({
         default: false
     },
     data_criacao: {
-        type: Date,
-        default: Date.now()
+        type: String,
+        default: `${dia}/${mes}/${ano}`
     },
     usuario:{
         type: mongoose.Schema.Types.ObjectId,
