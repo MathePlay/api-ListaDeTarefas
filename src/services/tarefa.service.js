@@ -113,7 +113,7 @@ export const alterarRealizadaService = async (id) => {
 };
 
 export const alterarFavoritoService = async (id) => {
-    const [tarefaEncontrada] = await buscarTarefaPeloIdRepository(id);
+    const tarefaEncontrada = await buscarTarefaPeloIdRepository(id);
 
     if (!tarefaEncontrada) throw new Error("Tarefa não encontrada");
 

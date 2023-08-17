@@ -8,7 +8,7 @@ export const autentMiddleware = (req, res, next) => {
 
     try {
         const { authorization } = req.headers
-
+        
         if (!authorization) {
             res.status(401).send({ message: "Você não está autorizado" })
         }
@@ -16,13 +16,13 @@ export const autentMiddleware = (req, res, next) => {
         const partes = authorization.split(" ")
 
         if (partes.length !== 2) {
-            res.status(401).send({ message: "Você não está autorizado" })
+            res.status(401).send({ message: "Você não está autorizado." })
         }
 
         const [schema, token] = partes
 
         if (schema !== "Bearer") {
-            res.status(401).send({ message: "Você não está autorizado" })
+            res.status(401).send({ message: "Você não está autorizado.." })
         }
 
         jwt.verify(token, process.env.SECRET_JWT, async (err, decoded) => {
