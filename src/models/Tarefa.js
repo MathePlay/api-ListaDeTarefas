@@ -22,6 +22,10 @@ const TarefaSchema = new mongoose.Schema({
         type: String,
         default: `${dia}/${mes}/${ano}`
     },
+    isListaCompra: {
+        type: Boolean,
+        default: false
+    },
     usuario:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Usuario",

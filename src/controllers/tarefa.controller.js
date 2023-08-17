@@ -10,10 +10,11 @@ import {
 
 export const adicionarTarefaController = async (req, res) => {
     try {
-        const {nome} = req.body;
+        const {nome, isListaCompra} = req.body;
 
         const tarefa = await adicionarTarefaService({
             nome,
+            isListaCompra,
             usuario: req.IdUsuario
         });
 
@@ -37,6 +38,7 @@ export const buscarTodasTarefasController = async (req, res) => {
                 realizada: t.realizada,
                 favorito: t.favorito,
                 data_criacao: t.data_criacao,
+                isListaCompra: t.isListaCompra,
                 usuario: t.usuario.nome
             }))
         });
